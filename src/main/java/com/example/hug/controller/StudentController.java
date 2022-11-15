@@ -1,6 +1,7 @@
 package com.example.hug.controller;
 
 import com.example.hug.model.Student;
+import com.example.hug.service.classroom.IClassroomService;
 import com.example.hug.service.student.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,8 @@ import java.util.Optional;
 public class StudentController {
     @Autowired
     private IStudentService studentService;
+    @Autowired
+    private IClassroomService classroomService;
 
     @GetMapping
     public ResponseEntity<Iterable<Student>> findAllStudent(Pageable pageable) {
@@ -39,6 +42,7 @@ public class StudentController {
 
     @PostMapping
     public ResponseEntity<Student> saveStudent(@RequestBody Student student) {
+        Student abc  = student;
         return new ResponseEntity<>(  studentService.save(student),HttpStatus.CREATED);
     }
 

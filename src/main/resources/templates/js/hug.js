@@ -1,28 +1,4 @@
 
-    $(document).ready(function(){
-    // Activate tooltip
-    $('[data-toggle="tooltip"]').tooltip();
-
-    // Select/Deselect checkboxes
-    var checkbox = $('table tbody input[type="checkbox"]');
-    $("#selectAll").click(function(){
-    if(this.checked){
-    checkbox.each(function(){
-    this.checked = true;
-});
-} else{
-    checkbox.each(function(){
-    this.checked = false;
-});
-}
-});
-    checkbox.click(function(){
-    if(!this.checked){
-    $("#selectAll").prop("checked", false);
-}
-});
-});
-
     function listStudent(){
     $.ajax({
         type:"GET",
@@ -63,8 +39,6 @@
             }
             else {
                 for (let i=0; i<data.content.length; i++){
-
-                    // str += data.content[i].name;
                     str += `<option value=${data.content[i].id}>`+`${data.content[i].name}`+`</option>`;
                 }
                 document.getElementById("class-room").innerHTML= str;
@@ -78,18 +52,18 @@
     function getListStudent(student){
     return `<tr>`+
     `<td>${student.id}</td>`+
-    `  <td><a href="#detailEmployeeModal" data-toggle="modal" onclick="showFormDetail(${student.id})">${student.name}</a></td>`+
+    `  <td><a href="#detailEmployeeModal" data-toggle="modal" onclick="showStudentDetail(${student.id})">${student.name}</a></td>`+
     `  <td>${student.dateBirth}</td>`+
     `  <td>${student.phone}</td>`+
     `  <td>${student.email}</td>`+
     `  <td>${student.classroom.name}</td>`+
     `  <td>`+
-    `    <a href="#editEmployeeModal" onclick="showFormUpdate(${student.id})" class="edit" data-toggle="modal"><i class="material-icons"`+
+    `    <a href="#editEmployeeModal" onclick="showFormUpdate(${student.id})" class="edit" data-toggle="modal"><i class="fa fa-pencil"`+
     `                                                                         data-toggle="tooltip"`+
-    `                                                                         title="Edit">&#xE254;</i></a>`+
-    `    <a href="#deleteEmployeeModal" onclick="showForDelete(${student.id})" class="delete" data-toggle="modal"><i class="material-icons"`+
+    `                                                                         title="Edit"></i></a>`+
+    `    <a href="#deleteEmployeeModal" onclick="showForDelete(${student.id})" class="delete" data-toggle="modal"><i class="fa fa-ban"`+
     `                                                                             data-toggle="tooltip"`+
-    `                                                                             title="Delete">&#xE872;</i></a>`+
+    `                                                                             title="Delete"></i></a>`+
     `  </td>`+
     ` </tr>`
 }
@@ -103,15 +77,14 @@
             console.log(data)
             $('.id-update').val(`${id}`)  ;
             $('.name-update').val(`${data.name}`)  ;
-            $('.national-update').val(`${data.national}`) ;
-            $('.area-update').val(`${data.area}`) ;
-            $('.population-update').val(`${data.population}`) ;
-            $('.dicription-update').val(`${data.dicription}`) ;
-            $('.gdp-update').val(`${data.gdp}`) ;
+            $('.datebirth-update').val(`${data.dateBirth}`) ;
+            $('.phone-update').val(`${data.phone}`) ;
+            $('.email-update').val(`${data.email}`) ;
+            $('.classroom-update').val(`${data.classroom.name}`) ;
         }
     })
 }
-    function showFormDetail(id){
+    function showStudentDetail(id){
 
     $.ajax({
         type:"GET",
@@ -120,11 +93,10 @@
             console.log(data)
             $('.id-detail').val(`${id}`)  ;
             $('.name-detail').val(`${data.name}`)  ;
-            $('.national-detail').val(`${data.national}`) ;
-            $('.area-detail').val(`${data.area}`) ;
-            $('.population-detail').val(`${data.population}`) ;
-            $('.dicription-detail').val(`${data.dicription}`) ;
-            $('.gdp-detail').val(`${data.gdp}`) ;
+            $('.datebirth-detail').val(`${data.dateBirth}`) ;
+            $('.phone-detail').val(`${data.phone}`) ;
+            $('.email-detail').val(`${data.email}`) ;
+            $('.classroom-detail').val(`${data.classroom.name}`) ;
         }
     })
 }
@@ -133,20 +105,18 @@
     console.log(id)
 }
 
-    function addCity(){
+    function addStudent(){
     let name = $('.name').val()  ;
-    let national=$('.national').val() ;
-    let area=$('.area').val() ;
-    let population=$('.population').val() ;
-    let dicription= $('.dicription').val() ;
-    let gdp= $('.gdp').val() ;
-    let city= {
+    let dateBirth=$('.date_birth').val() ;
+    let phone=$('.phone').val() ;
+    let email=$('.email').val() ;
+    let classroom= $('.classroom').val() ;
+    let student= {
     name:name,
-    national:national,
-    area:area,
-    population:population,
-    dicription:dicription,
-    gdp:gdp
+    dateBirth:dateBirth,
+    phone:phone,
+    email:email,
+    classroom:classroom
 }
     $.ajax({
     headers: {
@@ -155,7 +125,7 @@
 },
 
     type:"POST",
-    data:JSON.stringify(city),
+    data:JSON.stringify(student),
     url:"http://localhost:8080/student",
     success:function (data){
     listStudent();
@@ -165,21 +135,18 @@
 }
 
     function updateStudent(){
-    let id = $('.id-update').val()  ;
-    let name = $('.name-update').val()  ;
-    let national=$('.national-update').val() ;
-    let area=$('.area-update').val() ;
-    let population=$('.population-update').val() ;
-    let dicription= $('.dicription-update').val() ;
-    let gdp= $('.gdp-update').val() ;
-    let city= {
-    name:name,
-    national:national,
-    area:area,
-    population:population,
-    dicription:dicription,
-    gdp:gdp
-}
+    let name = $('.name').val()  ;
+    let dateBirth=$('.date_birth').val() ;
+    let phone=$('.phone').val() ;
+    let email=$('.email').val() ;
+    let classroom= $('.classroom').val() ;
+    let student= {
+        name:name,
+        dateBirth:dateBirth,
+        phone:phone,
+        email:email,
+        classroom:classroom
+    }
     $.ajax({
     headers: {
     'Accept': 'application/json',
@@ -187,7 +154,7 @@
 },
 
     type:"PUT",
-    data:JSON.stringify(city),
+    data:JSON.stringify(student),
     url:`http://localhost:8080/student/${id}`,
     success:function (data){
     listStudent()
