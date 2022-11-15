@@ -312,6 +312,33 @@
         }
       })
     }
+
+    function listClass(){
+      $.ajax({
+        type:"GET",
+        url:"http://localhost:8080/classroom",
+        success:function (data){
+          console.log(data)
+          let str=` <tr>`+
+                  `  <th>id</th>`+
+                  `  <th>name</th>`+
+                  `  <th>dateBirth</th>`+
+                  `  <th>phone</th>`+
+                  `  <th>email</th>`+
+                  `  <th>classroom</th>`+
+                  ` </tr>`;
+          if(data==null){
+            document.getElementById("city_list").innerHTML=str;
+          }
+          else {
+            for (let i=0; i<data.content.length; i++){
+              str += getList(data.content[i]);
+            }
+            document.getElementById("city_list").innerHTML= str;
+          }
+        }
+      })
+    }
     listStudent();
 
     function getList(student){
@@ -502,20 +529,22 @@
           </div>
           <div class="form-group">
             <label >dateBirth</label>
-            <input type="text" class="form-control national" required>
+            <input type="text" class="form-control-datebirth" required>
           </div>
           <div class="form-group">
             <label >phone</label>
-            <input type="text" class="form-control area" required>
+            <input type="text" class="form-control phone" required>
           </div>
 
           <div class="form-group">
             <label >email</label>
-            <input type="text" class="form-control population" required>
+            <input type="text" class="form-control email" required>
           </div>
           <div class="form-group">
-            <label>classroom</label>
-            <input type="text" class="form-control gdp" required>
+            <label>classroom </label>
+              <select class="form-control classroom" aria-label="Default select example" id="class-room">
+
+              </select>
           </div>
         </div>
         <div class="modal-footer">
@@ -545,20 +574,20 @@
           </div>
           <div class="form-group">
             <label >National</label>
-            <input type="text" class="form-control national-update" required>
+            <input type="text" class="form-control datebirth-update" required>
           </div>
           <div class="form-group">
             <label >Area</label>
-            <input type="text" class="form-control area-update" required>
+            <input type="text" class="form-control phone-update" required>
           </div>
 
           <div class="form-group">
             <label >Population</label>
-            <input type="text" class="form-control population-update" required>
+            <input type="text" class="form-control email-update" required>
           </div>
           <div class="form-group">
             <label>GDP</label>
-            <input type="text" class="form-control gdp-update" required>
+            <input type="text" class="form-control classroom-update" required>
           </div>
           <div class="form-group">
             <label >Dicription</label>
@@ -593,20 +622,20 @@
           </div>
           <div class="form-group">
             <label >dateBirth</label>
-            <input type="text" class="form-control national-detail" disabled>
+            <input type="text" class="form-control datebirth-detail" disabled>
           </div>
           <div class="form-group">
             <label >phone</label>
-            <input type="text" class="form-control area-detail" disabled>
+            <input type="text" class="form-control phone-detail" disabled>
           </div>
 
           <div class="form-group">
             <label >email</label>
-            <input type="text" class="form-control population-detail" disabled>
+            <input type="text" class="form-control email-detail" disabled>
           </div>
           <div class="form-group">
             <label>classroom</label>
-            <input type="text" class="form-control gdp-detail" disabled>
+            <input type="text" class="form-control classroom-detail" disabled>
           </div>
         </div>
         <div class="modal-footer">

@@ -1,7 +1,7 @@
 package com.example.hug.controller;
 
 import com.example.hug.model.Student;
-import com.example.hug.service.IStudentService;
+import com.example.hug.service.student.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/student")
 @CrossOrigin("*")
-public class MainController {
+public class StudentController {
     @Autowired
     private IStudentService studentService;
 
@@ -24,8 +24,6 @@ public class MainController {
         if (students.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-
-
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
 

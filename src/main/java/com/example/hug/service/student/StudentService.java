@@ -1,4 +1,4 @@
-package com.example.hug.service;
+package com.example.hug.service.student;
 
 import com.example.hug.model.Student;
 import com.example.hug.repository.IStudentRepository;
