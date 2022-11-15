@@ -1,9 +1,7 @@
 package com.example.hug.controller;
 
 import com.example.hug.model.Classroom;
-import com.example.hug.model.Student;
 import com.example.hug.service.classroom.IClassroomService;
-import com.example.hug.service.student.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/classroom")
-@CrossOrigin("*")
+@CrossOrigin
 public class ClassroomController {
     @Autowired
     private IClassroomService classroomService;
