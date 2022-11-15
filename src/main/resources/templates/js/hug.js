@@ -1,3 +1,6 @@
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
     function listStudent(){
     $.ajax({
@@ -46,6 +49,31 @@
         }
     })
 }
+
+function studentClass(id){
+    $.ajax({
+        type:"GET",
+        url:"http://localhost:8080/classroom",
+        success:function (data){
+            console.log(data)
+            let str= ""
+            if(data==null){
+                document.getElementById("class-room").innerHTML=str;
+            }
+            else {
+                for (let i=0; i<data.content.length; i++){
+                    if ((data.content[i].id)==id){
+                        str += `<option value=${data.content[i].id} selected >`+`${data.content[i].name}`+`</option>`;
+                }
+                    else {
+                        str += `<option value=${data.content[i].id}>`+`${data.content[i].name}`+`</option>`;
+                    }
+                }
+                document.getElementById("class-room1").innerHTML= str;
+            }
+        }
+    })
+}
     listStudent();
     listClass();
 
@@ -81,6 +109,10 @@
             $('.phone-update').val(`${data.phone}`) ;
             $('.email-update').val(`${data.email}`) ;
             $('.classroom-update').val(`${data.classroom.name}`) ;
+            sleep(200).then(() => {
+                // Do something after the sleep!
+                studentClass(data.classroom.id)
+            });
         }
     })
 }
@@ -135,12 +167,14 @@
 }
 
     function updateStudent(){
-    let name = $('.name').val()  ;
-    let dateBirth=$('.date_birth').val() ;
-    let phone=$('.phone').val() ;
-    let email=$('.email').val() ;
-    let classroom= $('.classroom').val() ;
+    let name = $('.name-update').val()  ;
+    let id = $('.id-update').val();
+    let dateBirth=$('.datebirth-update').val() ;
+    let phone=$('.phone-update').val() ;
+    let email=$('.email-update').val() ;
+    let classroom= $('.classroom-update').val() ;
     let student= {
+        id:id,
         name:name,
         dateBirth:dateBirth,
         phone:phone,
@@ -157,7 +191,10 @@
     data:JSON.stringify(student),
     url:`http://localhost:8080/student/${id}`,
     success:function (data){
-    listStudent()
+        sleep(1000).then(() => {
+            // Do something after the sleep!
+            listStudent();
+        });
 }
 
 })
@@ -170,7 +207,10 @@
     type:"DELETE",
     url:`http://localhost:8080/student/${id}`,
     success:function (){
-    listStudent();
+        sleep(1000).then(() => {
+            // Do something after the sleep!
+            listStudent();
+        });
 }
 })
 }

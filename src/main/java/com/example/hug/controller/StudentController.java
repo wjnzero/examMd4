@@ -1,5 +1,6 @@
 package com.example.hug.controller;
 
+import com.example.hug.model.Classroom;
 import com.example.hug.model.Student;
 import com.example.hug.service.classroom.IClassroomService;
 import com.example.hug.service.student.IStudentService;
@@ -42,7 +43,8 @@ public class StudentController {
 
     @PostMapping
     public ResponseEntity<Student> saveStudent(@RequestBody Student student) {
-        Student abc  = student;
+        long temp = Long.parseLong((student.getClassroom()).getName());
+        student.setClassroom(classroomService.findById(temp).get());
         return new ResponseEntity<>(  studentService.save(student),HttpStatus.CREATED);
     }
 
@@ -53,6 +55,8 @@ public class StudentController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         student.setId(student1.get().getId());
+        long temp = Long.parseLong((student.getClassroom()).getName());
+        student.setClassroom(classroomService.findById(temp).get());
         return new ResponseEntity<>(studentService.save(student), HttpStatus.OK);
     }
 
