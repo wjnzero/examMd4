@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>City Manager</title>
+  <title>Student Manager</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -403,7 +403,7 @@
       })
     }
 
-    function updateCity(){
+    function updateStudent(){
       let id = $('.id-update').val()  ;
       let name = $('.name-update').val()  ;
       let national=$('.national-update').val() ;
@@ -427,7 +427,7 @@
 
         type:"PUT",
         data:JSON.stringify(city),
-        url:`http://localhost:8080/city/${id}`,
+        url:`http://localhost:8080/student/${id}`,
         success:function (data){
           listStudent()
         }
@@ -497,29 +497,25 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label >City</label>
+            <label >name</label>
             <input type="text" class="form-control name" required>
           </div>
           <div class="form-group">
-            <label >National</label>
+            <label >dateBirth</label>
             <input type="text" class="form-control national" required>
           </div>
           <div class="form-group">
-            <label >Area</label>
+            <label >phone</label>
             <input type="text" class="form-control area" required>
           </div>
 
           <div class="form-group">
-            <label >Population</label>
+            <label >email</label>
             <input type="text" class="form-control population" required>
           </div>
           <div class="form-group">
-            <label>GDP</label>
+            <label>classroom</label>
             <input type="text" class="form-control gdp" required>
-          </div>
-          <div class="form-group">
-            <label >Dicription</label>
-            <textarea class="form-control dicription" required></textarea>
           </div>
         </div>
         <div class="modal-footer">
@@ -571,7 +567,7 @@
         </div>
         <div class="modal-footer">
           <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-          <input type="submit" class="btn btn-success" value="Update" onclick="updateCity()">
+          <input type="submit" class="btn btn-success" value="Update" onclick="updateStudent()">
         </div>
       </form>
     </div>
