@@ -354,7 +354,7 @@
 
       $.ajax({
         type:"GET",
-        url:`http://localhost:8080/city/${id}`,
+        url:`http://localhost:8080/student/${id}`,
         success:function (data){
           console.log(data)
           $('.id-detail').val(`${id}`)  ;
@@ -395,7 +395,7 @@
 
         type:"POST",
         data:JSON.stringify(city),
-        url:"http://localhost:8080/city",
+        url:"http://localhost:8080/student",
         success:function (data){
           listStudent();
         }
